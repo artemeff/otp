@@ -57,12 +57,14 @@ basic(Config) when is_list(Config) ->
     {more, 5+1} = decode_pkt(1,<<5,1,2,3,4>>),
     {more, 5+2} = decode_pkt(2,<<0,5,1,2,3,4>>),
     {more, 5+4} = decode_pkt(4,<<0,0,0,5,1,2,3,4>>),
+    {more, 5+2} = decode_pkt(-2,<<5,0,1,2,3,4>>),
+    {more, 5+4} = decode_pkt(-4,<<5,0,0,0,1,2,3,4>>),
 
     {more, undefined} = decode_pkt(1,<<>>),
     {more, undefined} = decode_pkt(2,<<0>>),
     {more, undefined} = decode_pkt(4,<<0,0,0>>),
 
-    Types = [1,2,4,asn1,sunrm,cdr,fcgi,tpkt,ssl_tls],
+    Types = [-4,-2,1,2,4,asn1,sunrm,cdr,fcgi,tpkt,ssl_tls],
 
     %% Run tests for different header types and bit offsets.
 
